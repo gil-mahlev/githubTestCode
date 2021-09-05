@@ -117,13 +117,12 @@ public:
 		return data;
 		
 	}
-	// pop by index
-	T *at(int index)
+	bool erase(int index)
 	{
 		node<T> *temp,*prev;
 		if(head == NULL)
 		{
-			return NULL;
+			return false;
 		}	
 		if(index == 0)
 		{
@@ -131,6 +130,7 @@ public:
 			head = head->next;
 			T *data = head->data;
 			delete temp;
+			return true;
 		}
 		temp = head;
 		
@@ -140,12 +140,57 @@ public:
 			temp = temp->next;
 			if(temp == NULL)
 			{
-				return NULL;
+				return false;
 			}
 		}
 		prev->next = temp->next;
-		T *data = temp->data;
 		delete temp;
-		return data;
+		return true;		
+	}
+	// pop by index
+	int distance(T *data)
+	{
+		int index=0;
+		node<T> *temp = head;
+		
+		if(head == NULL)
+		{
+			return -1;
+		}
+		while(temp != NULL)
+		{
+			if(temp->data == data)
+			{
+				return index;
+			}
+			temp = temp->next;
+			index++;
+		}
+		return -1;
+		
+	}
+	T *at(int index)
+	{
+		node<T> *temp;
+		if(head == NULL)
+		{
+			return NULL;
+		}	
+		
+		temp = head;
+		if(index == 0)
+		{
+			return temp->data;
+		}
+		
+		while(index--)
+		{
+			temp = temp->next;
+			if(temp == NULL)
+			{
+				return NULL;
+			}
+		}
+		return temp->data;
 	}
 };
